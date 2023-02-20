@@ -1,27 +1,19 @@
 #!/usr/bin/env python
-from ./social-media-database.py import *
+from social_media_database import *
+from social_media_interface import *
 import argparse
-
-
-
-
-
-
-
-
-
-
 
 def parseArgs():
     parser = argparse.ArgumentParser(prog="Social Media", description="A simple command line social media")
-    # parser.add_argument("-login", type=str, required=True)
+    parser.add_argument("--add-user", type=int, default=0)
     args = parser.parse_args()
     return args
 
-# testing to come soon!
 def main(args):
-    # if (args.deploy == "login"):
-    #     login()
+    if(args.add_user != 0):
+        userName, userEmail, userPassword = newUser()
+        addUser(userName,userEmail,userPassword)
+
 
 if __name__ == "__main__":
     main(parseArgs())
