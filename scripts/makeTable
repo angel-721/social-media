@@ -1,0 +1,2 @@
+#!/bin/bash
+sqlite3 ../database/social-network-database.db < ../database/schema.sql
