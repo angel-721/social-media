@@ -2,7 +2,7 @@
 import sqlite3
 
 
-def addUser(username,userPassword,email):
+def addUser(userName,userPassword,email):
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
     # Get the latest id
@@ -16,11 +16,19 @@ def addUser(username,userPassword,email):
     cursor.execute("""
     INSERT INTO users (user_id, username, user_password, email)
     VALUES(?,?,?,?)
-    """,(userID, username, userPassword, email))
+    """,(userID, userName, userPassword, email))
     connection.commit()
     connection.close()
 
-def deleteUser():
+def deleteUser(userName):
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+    cursor.execute("""
+    DELETE FROM users
+    WHERE username == ?
+    """,(userName,))
+    connection.commit()
+    connection.close()
     return
 
 def followUser():
@@ -37,4 +45,3 @@ def likePost():
 
 def getFeed():
     return
-
