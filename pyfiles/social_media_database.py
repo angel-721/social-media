@@ -31,7 +31,15 @@ def deleteUser(userName):
     connection.close()
     return
 
-def followUser():
+def followUser(userID, followerID):
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+    cursor.execute("""
+    INSERT INTO follows (user_id, follower_id)
+    VALUES(?,?)
+    """,(userID, followerID))
+    connection.commit()
+    connection.close()
     return
 
 def post():
