@@ -31,13 +31,24 @@ def deleteUser(userName):
     connection.close()
     return
 
-def followUser(userID, followerID):
+def followUser(userName, followerName):
     connection = sqlite3.connect('../database/database.db')
     cursor = connection.cursor()
+
+    table = cursor.execute("""
+    SELECT user_id FROM users WHERE username = ?;
+    """,(userName,)).fetchall()
+    userID = table[0][0]
+
+    table = cursor.execute("""
+    SELECT user_id FROM users WHERE username = ?;
+    """,(followerName,)).fetchall()
+    followerID = table[0][0]
+
     cursor.execute("""
     INSERT INTO follows (user_id, follower_id)
-    VALUES(?,?)
-    """,(userID, followerID))
+    VALUES(?,?);
+    """,(followerID, userID))
     connection.commit()
     connection.close()
     return
@@ -55,4 +66,4 @@ def getFeed():
     return
 
 def dummyusers():
-    return 
+    return

@@ -14,3 +14,4 @@ def getUserToDelete():
 def follow():
     userName = input("What is your name? ")
     followName = input("Username of person to follow: ")
+    return userName, followName

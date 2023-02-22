@@ -9,6 +9,8 @@ def parseArgs():
     parser.add_argument("--delete-user", type=int, default=0)
     parser.add_argument("--TEST-add-user", type=int, default=0)
     parser.add_argument("--TEST-delete-user", type=int, default=0)
+    parser.add_argument("--follow-user", type=int, default=0)
+
     args = parser.parse_args()
     return args
 
@@ -21,6 +23,9 @@ def main(args):
     if(args.delete_user != 0):
         userName = getUserToDelete()
         deleteUser(userName)
+    if(args.follow_user != 0):
+        userName, followName = follow()
+        followUser(userName, followName)
     if(args.TEST_add_user != 0):
         userName = getUserToDelete()
         file=file.open("testing_Addition.txt")
