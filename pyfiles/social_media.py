@@ -10,6 +10,7 @@ def parseArgs():
     parser.add_argument("--TEST-add-user", type=int, default=0)
     parser.add_argument("--TEST-delete-user", type=int, default=0)
     parser.add_argument("--follow-user", type=int, default=0)
+    parser.add_argument("--post", type=int, default=0)
 
     args = parser.parse_args()
     return args
@@ -39,7 +40,9 @@ def main(args):
         for line in file:
             line=line.strip()
             deleteUser(line)
-
+    if(args.post != 0):
+        userName, postContent, timeStamp = makePost()
+        post(userName, postContent, timeStamp)
 
 if __name__ == "__main__":
     main(parseArgs())

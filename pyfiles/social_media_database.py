@@ -53,7 +53,29 @@ def followUser(userName, followerName):
     connection.close()
     return
 
-def post():
+def post(userName, postContent, timeStamp):
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+
+    table = cursor.execute("""
+    SELECT user_id FROM users WHERE username = ?;
+    """,(userName,)).fetchall()
+    userID = table[0][0]
+
+    cursor.execute("SELECT MAX(poster_id) FROM posts")
+    maxID = cursor.fetchone()[0]
+    if maxID is not None:
+        postID = maxID + 1
+    else:
+        postID = 1
+
+    cursor.execute("""
+    INSERT INTO posts (post_id, poster_id, content, created_time)
+    VALUES(?,?,?,?);
+    """,(postID, userID, postContent, timeStamp))
+
+    connection.commit()
+    connection.close()
     return
 
 def unfollowUser():
