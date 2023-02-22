@@ -22,3 +22,8 @@ def makePost():
     postContent = input("Post here: ")
     timeStamp = datetime.datetime.now()
     return userName, postContent, timeStamp
+
+def feed():
+    userName = input("What is your name? ")
+    numberPosts = input("Integer of posts you want to see: ")
+    return userName, numberPosts
