@@ -25,8 +25,9 @@ def main(args):
         userName = getUserToDelete()
         file=file.open("testing_Addition.txt")
         for line in file:
-            
-            addUser(userName,userEmail,userPassword)
+            line2=line.split(',')
+            #addUser(userName,userEmail,userPassword)
+            addUser(line2[0],line2[1],line2[2])
     if(args.TEST_delete_user != 0):
         file=file.open("testing_Delete.txt")
         #userName = getUserToDelete()
