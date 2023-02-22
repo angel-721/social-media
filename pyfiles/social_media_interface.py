@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import getpass
+import datetime
 
 def newUser():
     userName = input("Username: ")
@@ -15,3 +16,9 @@ def follow():
     userName = input("What is your name? ")
     followName = input("Username of person to follow: ")
     return userName, followName
+
+def makePost():
+    userName = input("What is your name? ")
+    postContent = input("Post here: ")
+    timeStamp = datetime.datetime.now()
+    return userName, postContent, timeStamp
