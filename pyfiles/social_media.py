@@ -53,7 +53,7 @@ def main(args):
                 for bit in line2:
                     bit.strip()
                 #follow(line2[0],line2[1]);
-                followUser(line2[0], line2[1])
+                    followUser(line2[0], line2[1])
             file.close()
 
     if(args.TEST_delete_user != 0):
@@ -61,8 +61,8 @@ def main(args):
             file=open("../text_files/testing_Addition.txt")
             for line in file:
                 line2=line.split(',')
-                #addUser(userName,userEmail,userPassword)
-                addUser(line2[0],line2[1],line2[2])
+                #addUser(userName,userPassword, userEmail)
+                addUser(line2[0],line2[2],line2[1])
             file.close()
         file3=open("../text_files/testing_Delete.txt")
         #userName = getUserToDelete()
@@ -83,8 +83,6 @@ def main(args):
     if(args.follow_user != 0):
         userName, followName = follow()
         followUser(userName, followName)
-    
-
     if(args.post != 0):
         userName, postContent, timeStamp = makePost()
         post(userName, postContent, timeStamp)
