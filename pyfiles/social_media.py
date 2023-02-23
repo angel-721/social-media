@@ -2,6 +2,7 @@
 from social_media_database import *
 from social_media_interface import *
 import argparse
+import datetime
 
 def parseArgs():
     parser = argparse.ArgumentParser(prog="Social Media", description="A simple command line social media")
@@ -29,6 +30,7 @@ def main(args):
         #userName = getUserToDelete()
         file=open("testing_Addition.txt")
         for line in file:
+            line.strip()
             line2=line.split(',')
             #addUser(userName,userEmail,userPassword)
             addUser(line2[0],line2[1],line2[2])
@@ -40,6 +42,8 @@ def main(args):
                 line=line.strip()
                 line2=line.split('-,-')
                 #addPost(line2[0],line2[1]);
+                timeStamping = datetime.datetime.now()
+                post(line2[0], line2[1], timeStamping)
             file.close()
     if(args.TEST_following != 0):
             file=open("../text_files/testing_following.txt")
@@ -49,6 +53,7 @@ def main(args):
                 for bit in line2:
                     bit.strip()
                 #follow(line2[0],line2[1]);
+                followUser(line2[0], line2[1])
             file.close()
 
     if(args.TEST_delete_user != 0):
