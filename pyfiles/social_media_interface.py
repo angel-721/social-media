@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import getpass
+import datetime
 
 def newUser():
     userName = input("Username: ")
@@ -14,3 +15,15 @@ def getUserToDelete():
 def follow():
     userName = input("What is your name? ")
     followName = input("Username of person to follow: ")
+    return userName, followName
+
+def makePost():
+    userName = input("What is your name? ")
+    postContent = input("Post here: ")
+    timeStamp = datetime.datetime.now()
+    return userName, postContent, timeStamp
+
+def feed():
+    userName = input("What is your name? ")
+    numberPosts = input("Integer of posts you want to see: ")
+    return userName, numberPosts
