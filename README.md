@@ -13,9 +13,12 @@
 
 ## to run the tests run these commands:
 - Tip: You can run social_media.py as a script <code>./social_media --h</code>
-- <code>python social_media.py --TEST_add_user 1 </code>
-- <code>python social_media.py --TEST_add_post 1 </code>
-- <code>python social_media.py --TEST_following  1 </code>
-- <code>python social_media.py --TEST_delete_user 1 </code>
+- <code>python3 social_media.py --TEST-add-user 1 </code>
+- <code>python3 social_media.py --TEST-add-post 1 </code>
+- <code>python3 social_media.py --TEST-following  1 </code>
+- <code>python3 social_media.py --TEST-feed  1 </code>
+- <code>python3 social_media.py --TEST-feed-bacon  1 </code>
+- <code>python3 social_media.py --TEST-feed-search  1 </code>
+- <code>python3 social_media.py --TEST-delete-user 1 </code>
 - You can also run commands on make 
   - ex) <code> make follow </code>
