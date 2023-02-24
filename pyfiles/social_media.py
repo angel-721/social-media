@@ -12,6 +12,7 @@ def parseArgs():
     parser.add_argument("--post", type=int, default=0)
     parser.add_argument("--feed", type=int, default=0)
     parser.add_argument("--bacon-feed", type=int, default=0)
+    parser.add_argument("--search-feed", type=int, default=0)
 
     #the tests
     parser.add_argument("--TEST-add-user", type=int, default=0)
@@ -21,8 +22,6 @@ def parseArgs():
 
     args = parser.parse_args()
     return args
-
-
 
 def main(args):
 
@@ -74,7 +73,6 @@ def main(args):
     #delete shoulld be the last one cause it'll mess up the others if it stays.
 
 
-
     if(args.add_user != 0):
         userName, userEmail, userPassword = newUser()
         addUser(userName,userEmail,userPassword)
@@ -93,6 +91,9 @@ def main(args):
     if(args.bacon_feed != 0):
         userName,numberPosts,baconNumber = baconFeed()
         getBaconFeed(userName,baconNumber,numberPosts)
+    if(args.search_feed != 0):
+        userName, keyTerm, numberPosts = searchFeed()
+        getSearchFeed(userName, keyTerm, numberPosts)
 
 if __name__ == "__main__":
     main(parseArgs())

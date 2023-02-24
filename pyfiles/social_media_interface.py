@@ -33,3 +33,9 @@ def baconFeed():
     numberPosts = int(input("Integer of posts you want to see: "))
     baconNumber = int(input("Max recommend number: "))
     return userName, baconNumber, numberPosts
+
+def searchFeed():
+    userName = input("What is your name? ")
+    numberPosts = int(input("Integer of posts you want to see: "))
+    keyTerm = input("Key term you want to search for: ")
+    return userName, keyTerm, numberPosts
