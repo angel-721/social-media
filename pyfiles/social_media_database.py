@@ -120,7 +120,7 @@ def getFeed(userName,numberPosts):
     JOIN users AS poster ON follows.user_id = poster.user_id
     JOIN posts ON posts.poster_id = poster.user_id
     WHERE follower.user_id = ?
-    ORDER BY posts.created_time DESC;
+    ORDER BY posts.created_time ASC;
     """,(userID,)).fetchall()
     userFeed = []
     if len(feed) <= numberPosts:
@@ -166,7 +166,7 @@ def getBaconFeed(userName,baconNumber, numberPosts):
     WHERE me.n != 0 AND
     users.username != ?
     GROUP BY me.user_id
-    ORDER BY posts.created_time DESC;
+    ORDER BY posts.created_time ASC;
     """,(userName, baconNumber,userName)).fetchall()
     userFeed = []
     if len(feed) <= numberPosts:
@@ -212,7 +212,7 @@ def getSearchFeed(userName,keyTerm, numberPosts):
     WHERE me.n != 0 AND
     posts.content LIKE ?
     GROUP BY me.user_id
-    ORDER BY posts.created_time DESC;
+    ORDER BY posts.created_time ASC;
     """,(userName, keyTerm)).fetchall()
     userFeed = []
     if len(feed) <= numberPosts:
