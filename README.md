@@ -14,4 +14,5 @@
 - <code>python social_media.py --TEST_add_post 1 </code>
 - <code>python social_media.py --TEST_following  1 </code>
 - <code>python social_media.py --TEST_delete_user 1 </code>
-
+- You can also run commands on make 
+  - ex) <code> make follow </code>
