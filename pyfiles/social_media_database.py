@@ -138,5 +138,5 @@ def getFeed(userName,numberPosts):
     connection.close()
     return
 
-def dummyusers():
-    return
+#def dummyusers():
+    #return 

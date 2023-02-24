@@ -1,8 +1,0 @@
-James Madison, JMman@fake.com,p@ssw0rd
-James Matheson, JMaman@fake.com,p@ssw0rd1
-John Madison, JoMman@fake.com,p@ssw0rd2
-John Matheson, JoMaman@fake.com,p@ssw0rd3
-Peter Archemidies, PAman@fake.com,p@ssw0rd4
-Peter Plato, PPman@fake.com,p@ssw0rd5
-Bob Archemidies, BAman@fake.com,p@ssw0rd6
-Bob Plato, BPman@fake.com,p@ssw0rd7
