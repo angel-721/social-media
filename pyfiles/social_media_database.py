@@ -127,7 +127,6 @@ def getFeed(userName,numberPosts):
 
     for i in range(numberPosts):
         userFeed.append(feed[i])
-    print(userFeed)
 
     print("------FEED-----")
     for i in userFeed:
@@ -138,5 +137,48 @@ def getFeed(userName,numberPosts):
     connection.close()
     return
 
+def getBaconFeed(userName,baconNumber, numberPosts):
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+
+    table = cursor.execute("""
+    SELECT user_id FROM users WHERE username = ?;
+    """,(userName,)).fetchall()
+    userID = table[0][0]
+
+    feed = cursor.execute("""
+
+    WITH RECURSIVE me(user_id, n) AS(
+    SELECT user_id, 0 AS n
+    FROM users WHERE username = ?
+    UNION
+    SELECT followsB.user_id, me.n+1 FROM me
+    JOIN follows AS followsA ON me.user_id = followsA.follower_id
+    JOIN follows AS followsB on followsA.user_id = followsB.follower_id
+    WHERE followsA.user_id != followsB.user_id
+    AND me.n < ?
+    )
+    SELECT me.user_id, users.username, posts.content,posts.created_time, MIN(me.n) AS n FROM me
+    JOIN users ON me.user_id = users.user_id
+    JOIN posts ON posts.poster_id = users.user_id
+    GROUP BY me.user_id
+    ORDER BY me.n, users.username DESC;
+    """,(userName, baconNumber)).fetchall()
+    userFeed = []
+    if len(feed) <= numberPosts:
+        numberPosts = len(feed)
+
+    for i in range(numberPosts):
+        userFeed.append(feed[i])
+
+    print("------Recommended FEED-----")
+    for i in userFeed:
+        print(i[1], "- \n", i[2], "\n on", i[3])
+        print()
+
+    connection.commit()
+    connection.close()
+    return
+
 #def dummyusers():
-    #return 
+    #return
