@@ -11,12 +11,15 @@ def parseArgs():
     parser.add_argument("--follow-user", type=int, default=0)
     parser.add_argument("--post", type=int, default=0)
     parser.add_argument("--feed", type=int, default=0)
+    parser.add_argument("--bacon-feed", type=int, default=0)
+    parser.add_argument("--search-feed", type=int, default=0)
 
     #the tests
     parser.add_argument("--TEST-add-user", type=int, default=0)
     parser.add_argument("--TEST-delete-user", type=int, default=0)
-    parser.add_argument("--TEST-add-posts", type=int, default=0)
+    parser.add_argument("--TEST-add-post", type=int, default=0)
     parser.add_argument("--TEST-following", type=int, default=0)
+
     parser.add_argument("--TEST-feed", type=int, default=0)
     parser.add_argument("--TEST-feed-bacon", type=int, default=0)
     parser.add_argument("--TEST-feed-search", type=int, default=0)
@@ -24,21 +27,19 @@ def parseArgs():
     args = parser.parse_args()
     return args
 
-
-
 def main(args):
 
     #testing stuff
     if(args.TEST_add_user != 0):
         #userName = getUserToDelete()
-        file=open("testing_Addition.txt")
+        file=open("../text_files/testing_Addition.txt")
         for line in file:
             line.strip()
             line2=line.split(',')
             #addUser(userName,userEmail,userPassword)
             addUser(line2[0],line2[1],line2[2])
         file.close()
-    
+
     if(args.TEST_add_post != 0):
             file=open("../text_files/testing_add_posts.txt")
             for line in file:
@@ -106,7 +107,6 @@ def main(args):
     #delete shoulld be the last one cause it'll mess up the others if it stays.
 
 
-
     if(args.add_user != 0):
         userName, userEmail, userPassword = newUser()
         addUser(userName,userEmail,userPassword)
@@ -122,6 +122,12 @@ def main(args):
     if(args.feed != 0):
         userName,numberPosts = feed()
         getFeed(userName,int(numberPosts))
+    if(args.bacon_feed != 0):
+        userName,numberPosts,baconNumber = baconFeed()
+        getBaconFeed(userName,baconNumber,numberPosts)
+    if(args.search_feed != 0):
+        userName, keyTerm, numberPosts = searchFeed()
+        getSearchFeed(userName, keyTerm, numberPosts)
 
 if __name__ == "__main__":
     main(parseArgs())
