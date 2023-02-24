@@ -27,3 +27,9 @@ def feed():
     userName = input("What is your name? ")
     numberPosts = input("Integer of posts you want to see: ")
     return userName, numberPosts
+
+def baconFeed():
+    userName = input("What is your name? ")
+    numberPosts = int(input("Integer of posts you want to see: "))
+    baconNumber = int(input("Max recommend number: "))
+    return userName, baconNumber, numberPosts
