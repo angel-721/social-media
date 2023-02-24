@@ -1,4 +1,9 @@
-James Madison -,- message
+James Madison-,- message
 John Madison-,- message2
 Peter Plato-,- message3
 Bob Archemidies-,- message4
+John Madison-,-cat
+John Madison-,-dog
+John Madison-,-doggo
+John Madison-,-fish
+John Madison-,-flop
