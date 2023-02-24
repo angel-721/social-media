@@ -100,7 +100,7 @@ def post(userName, postContent, timeStamp):
 
     connection.commit()
     connection.close()
-    print(userName, "posted", postContent, "on\n", timeStamp)
+    print(userName, "posted", '\"' + postContent + "\"", "on\n", timeStamp)
     return
 
 
@@ -119,7 +119,8 @@ def getFeed(userName,numberPosts):
     JOIN follows ON follower.user_id = follows.follower_id
     JOIN users AS poster ON follows.user_id = poster.user_id
     JOIN posts ON posts.poster_id = poster.user_id
-    WHERE follower.user_id = ?;
+    WHERE follower.user_id = ?
+    ORDER BY posts.created_time DESC;
     """,(userID,)).fetchall()
     userFeed = []
     if len(feed) <= numberPosts:
@@ -150,7 +151,8 @@ def getBaconFeed(userName,baconNumber, numberPosts):
 
     WITH RECURSIVE me(user_id, n) AS(
     SELECT user_id, 0 AS n
-    FROM users WHERE username = ?
+    FROM users
+    WHERE username = ?
     UNION
     SELECT followsB.user_id, me.n+1 FROM me
     JOIN follows AS followsA ON me.user_id = followsA.follower_id
@@ -161,9 +163,11 @@ def getBaconFeed(userName,baconNumber, numberPosts):
     SELECT me.user_id, users.username, posts.content,posts.created_time, MIN(me.n) AS n FROM me
     JOIN users ON me.user_id = users.user_id
     JOIN posts ON posts.poster_id = users.user_id
+    WHERE me.n != 0 AND
+    users.username != ?
     GROUP BY me.user_id
-    ORDER BY me.n, users.username DESC;
-    """,(userName, baconNumber)).fetchall()
+    ORDER BY posts.created_time DESC;
+    """,(userName, baconNumber,userName)).fetchall()
     userFeed = []
     if len(feed) <= numberPosts:
         numberPosts = len(feed)
@@ -172,6 +176,53 @@ def getBaconFeed(userName,baconNumber, numberPosts):
         userFeed.append(feed[i])
 
     print("------Recommended FEED-----")
+    for i in userFeed:
+        print(i[1], "- \n", i[2], "\n on", i[3])
+        print()
+
+    connection.commit()
+    connection.close()
+    return
+
+def getSearchFeed(userName,keyTerm, numberPosts):
+    connection = sqlite3.connect('../database/database.db')
+    cursor = connection.cursor()
+
+    table = cursor.execute("""
+    SELECT user_id FROM users WHERE username = ?;
+    """,(userName,)).fetchall()
+    userID = table[0][0]
+
+    oldKeyTerm = keyTerm
+    keyTerm = "%"+keyTerm+"%"
+    feed = cursor.execute("""
+    WITH RECURSIVE me(user_id, n) AS(
+    SELECT user_id, 0 AS n
+    FROM users
+    WHERE username = ?
+    UNION
+    SELECT followsA.user_id, me.n+1 FROM me
+    JOIN follows AS followsA ON me.user_id = followsA.follower_id
+    WHERE followsA.user_id != me.user_id
+    AND me.n < 5
+    )
+    SELECT me.user_id, users.username, posts.content,posts.created_time, MIN(me.n) AS n FROM me
+    JOIN users ON me.user_id = users.user_id
+    JOIN posts ON posts.poster_id = users.user_id
+    WHERE me.n != 0 AND
+    posts.content LIKE ?
+    GROUP BY me.user_id
+    ORDER BY posts.created_time DESC;
+    """,(userName, keyTerm)).fetchall()
+    userFeed = []
+    if len(feed) <= numberPosts:
+        numberPosts = len(feed)
+
+    for i in range(numberPosts):
+        userFeed.append(feed[i])
+
+    print("Feed for key term: ", oldKeyTerm)
+    print("------FEED-----")
     for i in userFeed:
         print(i[1], "- \n", i[2], "\n on", i[3])
         print()
