@@ -1,11 +1,11 @@
 the tests are in a series of text file in /text_files 
 Welcome to the social media site. 
 these are a couple of the basic commands you will need
-commands:
+|commands: | arguments|
+| -| -|
 |follow    | your username, friends name         |
-|newuser   |your desired username, email,password| 
+|newuser   |your desired username, email,password|
 |post      |your username, message               |
-
 
 
 to run the tests run these commands:
