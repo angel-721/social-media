@@ -9,8 +9,9 @@
 
 
 ## to run the tests run these commands:
-<code>python socialmedia.py --TEST_add_user 1 </code>
-<code>python socialmedia.py --TEST_add_post 1 </code>
-<code>python socialmedia.py --TEST_following  1 </code>
-<code>python socialmedia.py --TEST_delete_user 1 </code>
+- Tip: You can run social_media.py as a script <code>./social_media --h</code>
+- <code>python social_media.py --TEST_add_user 1 </code>
+- <code>python social_media.py --TEST_add_post 1 </code>
+- <code>python social_media.py --TEST_following  1 </code>
+- <code>python social_media.py --TEST_delete_user 1 </code>
 
