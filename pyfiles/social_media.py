@@ -17,6 +17,9 @@ def parseArgs():
     parser.add_argument("--TEST-delete-user", type=int, default=0)
     parser.add_argument("--TEST-add-posts", type=int, default=0)
     parser.add_argument("--TEST-following", type=int, default=0)
+    parser.add_argument("--TEST-feed", type=int, default=0)
+    parser.add_argument("--TEST-feed-bacon", type=int, default=0)
+    parser.add_argument("--TEST-feed-search", type=int, default=0)
     
     args = parser.parse_args()
     return args
@@ -55,6 +58,36 @@ def main(args):
                 #follow(line2[0],line2[1]);
                     followUser(line2[0], line2[1])
             file.close()
+
+    if(args.TEST_feed != 0):        
+        file=open("../text_files/testing_feed.txt")
+        for line in file:
+            line=line.strip()
+            line2=line.split(',')
+            for bit in line2:
+                bit=bit.strip()
+            getFeed(line2[0],line2[1])
+        file.close()
+    if(args.TEST_feed_bacon != 0):        
+        file=open("../text_files/testing_feed_bacon.txt")
+        for line in file:
+            line=line.strip()
+            line2=line.split(',')
+            for bit in line2:
+                bit=bit.strip()
+            getBaconFeed(line2[0],line2[1],line2[2])
+        file.close()
+    if(args.TEST_feed_search != 0):        
+        file=open("../text_files/testing_feed_search.txt")
+        for line in file:
+            line=line.strip()
+            line2=line.split('-,-')
+            for bit in line2:
+                bit=bit.strip()
+            getSearchFeed(line2[0],line2[1],line2[2])
+        file.close()
+    
+
 
     if(args.TEST_delete_user != 0):
         if(args.TEST_add_user == 0):
